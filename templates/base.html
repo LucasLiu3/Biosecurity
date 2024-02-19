@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>{% block title %}{% endblock %}</title>
+        <!-- Bootstrap CSS link -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    </head>
+
+    <body >
+      <nav>
+          <div class="container text-center">
+              <h1 class="text-primary my-5">Bankside Rakaia Motorkhana Mavens - Competition event</h1>
+          </div>
+          <div class="container">
+              <ul class="list-unstyled text-center">
+                  <li class="d-inline-block mx-3">
+                      <a href="{{ url_for('Driver') }}" class="text-decoration-none" >
+                          <img src="../static/drivericon.png" alt="" class="img-thumbnail" style="width: 110px; height: 100px;background-color: yellow; border: none;">
+                          <div class="d-block">Driver</div>
+                      </a>
+                  </li>
+                  <li class="d-inline-block mx-3">
+                      <a href="{{ url_for('Administrator') }}" class="text-decoration-none">
+                          <img src="../static/adminstratoricon.png" alt="" class="img-thumbnail" style="width: 100px; height: 100px; background-color:yellow; border: none;">
+                          <div class="d-block">Administrator</div>
+                      </a>
+                  </li>
+              </ul>
+          </div>
+      </nav>
+          <section class="content">
+            <header>
+              {% block header %}{% endblock %}
+            </header>
+            {% for message in get_flashed_messages() %}
+              <div class="flash">{{ message }}</div>
+            {% endfor %}
+            {% block content %}{% endblock %}
+          </section>
+
+        <!-- Bootstrap's JavaScript bundle including Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    </body>
+
+</html>
+
+
+
+      <!-- <body style="background-image: url(../static/backgroud.avif); background-size: cover; background-repeat: no-repeat;margin: 0;display: flex;flex-direction: column;justify-content: center;align-items: center;height: 100vh;">
+         
+        <nav>
+
+           <div style="width: 100%; ">
+
+             <div style="margin: 50px auto; width: 1200px; text-align: center; font-size: 36px; color:blue;">
+                  Bankside Rakaia Motorkhana Mavens - Competition event
+                  
+             </div>
+           
+           </div>
+           
+           <div style="width: 600px; height: 300px; margin: 100px auto;">
+           
+             <ul style="list-style: none; width: 550px; height: 250px; margin: 25px auto; text-align: center;">
+
+               <li style="width:150px; display: block; float: left; margin: 50px 50px; background-color: yellow;">
+                 <a href="{{ url_for('Driver') }}" style="text-decoration: none;"><img src="../static/driverricon.png" alt="" style="width:100px; height: 100px; display: block; margin: 0 auto;">Drivers</a></li>
+
+               <li style="width:150px; display: block; float: left;margin: 50px 50px;background-color: yellow;">
+                 <a href="{{ url_for('Administrator') }}" style="text-decoration: none;"><img src="../static/adminstratoricon.png" alt="" style="width: 80px; height: 80px; display: block; margin: 10px auto;">Administrator</a></li>
+             
+             </ul>
+
+           </div> -->

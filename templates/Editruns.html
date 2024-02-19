@@ -1,0 +1,34 @@
+{% extends "Administrator_Interface.html" %}
+{% block content %}
+
+<div style="margin: 30px;">
+<h1>Edit Successed</h1>
+
+<table class="table table-bordered table table-bordered border-dark table-striped text-center">
+        <tr class="text-center">
+            <th>Driver id</th>
+            <th>First Name</th>
+            <th>Surname</th>
+            <th>Crs Id</th>
+            <th>Run Num</th>
+            <th>Seconds</th>
+            <th>Cones</th>
+            <th>Wd</th>
+        </tr>
+        
+        {% for edit in edit_result %}
+            <tr class="text-center">
+                {% for result in edit %}
+                
+                <td>{{result}}</td>
+
+    
+                {% endfor %}
+                
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+
+
+{% endblock %}

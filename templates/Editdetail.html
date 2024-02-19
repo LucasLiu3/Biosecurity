@@ -1,0 +1,56 @@
+
+{% extends "Administrator_Interface.html" %}
+{% block content %}
+
+
+<div style="margin: 30px;" >
+
+    <div class="shadow-lg p-3 mb-5 bg-body-tertiary rounded" style="position: relative;">
+
+        <div class="d-flex justify-content-center align-items-center">
+        
+            <form name='edit' id="edit" action="Editruns"  method ='post'>
+                
+                <p>
+                <label>Driver ID:</label>
+                    <select name="driverid" id="driverid">
+                        <option> {{driverid}}</option>
+                    </select>
+                </p>
+
+                <p>
+                <label>Driver Name:</label>
+                <select name="fullname" id="fullname">
+                    <option> {{name[0][0]}} {{name[0][1]}}</option>
+                </select>
+                </p>
+
+                <p>
+                    <label>Course ID:</label>
+                <select name="courseid" id="courseid">
+                    <option> {{courseid}}</option>
+                </select>
+                </p>
+            
+                <p>
+                    <label >Run Num:</label>
+                <select name="runnum" id="runnum" >
+                    <option>{{runnum}}</option>
+                </select>
+                </p>   
+            
+                <p>Times: <input type="number" step="0.01" value = {{run_detail[0][0]}}  name ='newtime' placeholder="Edit Time" min = '0' max = '70'  style="width:100px;" required></p>
+                <p>Cone: <input type="number" name ='newcone' value = {{run_detail[0][1]}} min = '0' max ='25'placeholder="Edit Cone" style="width:100px;" required></p>
+                <p>WD: <input type="number" name ='newwd' value = {{run_detail[0][2]}} min = '0' max ='1' placeholder="Edit WD" style="width:100px;" required></p>
+            
+                <p class="d-flex justify-content-center align-items-center">
+                    <input type="submit" value="Submit">
+                    <span style="margin: 0 10px;">&nbsp;</span>
+                    <a href="{{ url_for('Edit') }}"><input type="button" value="Back"></a>
+                </p>
+                
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

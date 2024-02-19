@@ -1,0 +1,32 @@
+
+    {% extends "Driver_Interface.html" %}
+    {% block content %}
+    
+    
+    <div class="d-flex justify-content-center align-items-center" style="margin-top: 30px;">
+
+        <div class="shadow-lg p-5 mb-5 bg-body-tertiary rounded">
+            <form name='driver_name' id="driver_name" action="rundetail" method ='post'>
+
+            <h2 class="text-center" style="margin: 0 0 20px 0;">Driver Run Detail</h2>
+
+            <label >Driver Name:</label>
+            <select name="drivername" id="drivername" required>
+                <option value="" disabled selected hidden> Select A Driver Name</option>
+                
+                {% for drivername in driver_name %}
+                    <option value="{{drivername[0]}}">{{drivername[1]}}</option>
+                {% endfor %}
+            </select>
+            </p>
+
+            <p class="d-flex justify-content-center align-items-center">
+                <input type="submit" value="Submit">
+                <span style="margin: 0 10px;">&nbsp;</span>
+                <input type="reset" value="Cancel">
+
+            </p>
+            </form>
+        </div>
+    </div>
+    {% endblock %}

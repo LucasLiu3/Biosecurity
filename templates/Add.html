@@ -1,0 +1,51 @@
+
+    
+    {% extends "Administrator_Interface.html" %}
+    {% block content %}
+
+
+    <div class="d-flex justify-content-center align-items-center" style="margin: 30px;">
+
+    <div class="shadow-lg p-5 mb-5 bg-body-tertiary rounded"> 
+
+        <form name='driver_name' id="driver_name" action="Adddriver"  method ='post'>
+        
+
+        <h2 class="text-center" style="margin-bottom: 20px;">New Driver Registration</h2>
+        
+        <p>Driver's First Name: <input type="text" name="firstname" required></p>
+        <p>Driver's Surname: <input type="text" name="surname" required></p>
+
+        <p>
+            <button class="btn btn-danger" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                Is Junior Driver (age beween 12 and 25)?
+            </button>
+        </p>
+
+        <div class="collapse" id="collapseExample">
+            <label for="birthdate">Date of Birth:</label>
+            <input type="date" id="birthdate" name="birthdate"  min ='{{mindate}}' max="{{maxdate}}">
+            <input type="submit" value="Calculate Age">
+        </div><br>
+        
+        <div>
+            <label >Car Model:</label>
+            <select name="carclass" id="carclass">
+                <option value="" disabled selected hidden> Select A Car</option>
+                {% for car in car_list %}
+                    <option value="{{car[0]}}">{{car[0]}} {{car[1]}} {{car[2]}}</option>
+                {% endfor %}
+            </select>
+        </div><br>
+            
+            <p class="d-flex justify-content-center align-items-center">
+                <input type="submit" value="Submit">
+                <span style="margin: 0 10px;">&nbsp;</span>
+                <input type="reset" value="Cancel">
+        
+            </p>
+        </form>
+
+    </div>
+    </div>
+    {% endblock %}

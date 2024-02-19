@@ -1,0 +1,51 @@
+{% extends "Administrator_Interface.html" %}
+{% block content %}
+
+<div style="margin: 30px;">
+
+<h1 style="margin-bottom: 20px;">Add Successed</h1>
+
+<table class="table table-bordered table table-bordered border-dark table-striped text-center">
+        <tr class="text-center ">
+            <th>Driver id</th>
+            <th>First Name</th>
+            <th>Surname</th>
+            <th>Date of Birth</th>
+            <th>Age</th>
+            <th>Caregiver</th>
+            <th>Car</th>
+        </tr>
+        {% for information in add_list %}
+            <tr class="text-center">
+                {% for result in information %}
+                
+                <td>{{result}}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        
+        <table class="table table-bordered table table-bordered border-dark table-striped text-center">
+            <tr>
+                <th>Course ID</th>
+                <th>Run Num</th>
+                <th>Seconds</th>
+                <th>Cones</th>
+                <th>Wd</th>
+                <th>Run Total</th>
+            </tr>
+            {% for details in run_detail %}
+            <tr>
+                <td>{{ details[0] }}</td>
+                <td>{{ details[1] }}</td>
+                <td>{{ None }}</td>
+                <td>{{ None }}</td>
+                <td>{{ None }}</td>
+                <td>{{ None }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </table>
+
+</div>
+
+{% endblock %}

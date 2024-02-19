@@ -1,0 +1,60 @@
+
+    
+    {% include "DriverSearch.html" %}
+
+    {% block content %}
+   
+    <h2 class="text-center">Driver's Details</h2>
+    <table class="table table-bordered border-dark table-striped text-center">
+        {% if driver_detail|length ==0 %}  
+           <tr><h2 class="text-center">No Result Found</h2></tr>
+
+        {% else %}
+    <table class="table table-bordered border-dark table-striped text-center">
+        <tr class="text-center">
+            <th>Driver_Id</th>
+            <th>First Name</th>
+            <th>Surname</th>
+            <th>Car Model</th>
+            <th>Driver Class</th>
+        </tr>
+        
+        {% for details in driver_detail %}
+            <tr class="text-center">
+                {% for result in details %}
+                
+                <td>{{result}}</td>
+
+    
+                {% endfor %}
+                
+            </tr>
+        {% endfor %}
+    </table>
+
+    <table class="table table-bordered border-dark table-striped text-center">
+        <tr>
+            <th>Course Name</th>
+            <th>Run Num</th>
+            <th>Seconds</th>
+            <th>Cones</th>
+            <th>Wd</th>
+            <th>Run Total</th>
+        </tr>
+
+            {% for details in run_detail %}
+            <tr>
+                    <td>{{ details[5] }}</td>
+                    <td>{{ details[6] }}</td>
+                    <td>{{ details[7] }}</td>
+                    <td>{{ details[8] }}</td>
+                    <td>{{ details[9] }}</td>
+                    <td>{{ details[10] }}</td>
+                {% endfor %}
+            </tr>
+    {% endif %}
+    </table>
+    {% endblock %}
+
+
+

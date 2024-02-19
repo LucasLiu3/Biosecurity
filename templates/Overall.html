@@ -1,0 +1,37 @@
+
+   
+    {% extends "Driver_Interface.html" %}
+    {% block content %}
+
+    <div style="margin: 30px;">
+    <h2 class="text-center">Overall results</h2>
+
+    <table class="table table-bordered border-dark table-striped text-center">
+        <tr>
+            <th>Driver ID</th>
+            <th>Full Name</th>
+            <th>Car</th>
+            <th>Course A</th>
+            <th>Course B</th>
+            <th>Course C</th>
+            <th>Course D</th>
+            <th>Course E</th>
+            <th>Course F</th>
+            <th>Overall Results</th>
+            <th>Ranking</th>
+        </tr>
+        {% for overall in overall_list %}
+            <tr>
+                {% for details in overall %}
+                
+                <td>{{details}}</td>
+
+    
+                {% endfor %}
+                
+            </tr>
+        {% endfor %}
+    </table>
+    </div>
+    {% endblock %}
+

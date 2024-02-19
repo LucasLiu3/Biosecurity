@@ -1,0 +1,61 @@
+{% extends "Administrator_Interface.html" %}
+{% block content %}
+
+
+<div class="d-flex justify-content-center align-items-center" style="margin: 20px;">
+
+<form name='driver_name' id="driver_name" action="Adddriver"  method ='post'>
+
+
+<h2>New Driver Registration</h2>
+
+<p>Driver's First Name: <input type="text" name="firstname" value="{{First_name}}"> </p>
+<p>Driver's Surname: <input type="text" name="surname" value="{{Surname}}"></p>
+
+<p>
+    <button class="btn btn-danger" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        Is Junior Driver (age beween 12 and 25)?
+      </button>
+</p>
+
+
+    <p><label for="birthdate" name="birthdate">Date of Birth: <input type="date" name="birthdate" value="{{Birthday}}"> </label>
+    <input type="submit" value="Calculate Age" disabled></p>
+
+    <p>Age: <input type="text" name="age" value="{{age}}"></p>
+
+    
+    {% if 12 <= age <= 16 %}
+    <div>
+        <label >Cargiver:</label>
+        <select name="caregiver" id="caregiver" required>
+            <option value="" disabled selected hidden> Select A Caregiver</option>
+            
+            {% for caregiverr in caregiver_list %}
+                <option value="{{caregiverr[0]}}">{{caregiverr[1]}} {{caregiverr[2]}}</option>
+            {% endfor %}
+        </select>
+    </div><br>
+
+    {% endif %}
+
+    <div>
+        <label >Car Model:</label>
+        <select name="carclass" id="carclass" required>
+            <option value="" disabled selected hidden> Select A Car</option>
+            
+            {% for car in car_list %}
+                <option value="{{car[0]}}">{{car[0]}} {{car[1]}} {{car[2]}}</option>
+            {% endfor %}
+        </select>
+    </div><br>
+    
+    <p class="d-flex justify-content-center align-items-center">
+        <input type="submit" value="Submit">
+        <span style="margin: 0 10px;">&nbsp;</span>
+        <a href="{{ url_for('Add') }}"><input type="button" value="Back"></a>
+        
+    </p>
+</form>
+</div>
+{% endblock %}

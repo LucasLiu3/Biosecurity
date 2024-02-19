@@ -1,0 +1,29 @@
+
+
+
+    {% extends "Administrator_Interface.html" %}
+    {% block content %}
+    <div style="margin: 30px;">
+    <h2 class="text-center">Junior List</h2>
+    <table class="table table-bordered border-dark table-striped">
+        <tr class="text-center">
+            <th>Driver_id</th>
+            <th>First Name</th>
+            <th>Surname</th>
+            <th>Date of Birth</th>
+            <th>Age</th>
+            <th>Caregiver</th>
+        </tr>
+        {% for people in junior_list %}
+            <tr class="text-center">
+                {% for each in people %}
+                
+                <td>{{each}}</td>
+
+                {% endfor %}
+                
+            </tr>
+        {% endfor %}
+    </table>
+    </div>
+    {% endblock %}
