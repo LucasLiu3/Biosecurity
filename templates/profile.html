@@ -1,0 +1,84 @@
+<div style="margin: 30px">
+  <div
+    class="shadow-lg p-3 mb-5 bg-body-tertiary rounded"
+    style="position: relative"
+  >
+    <div class="d-flex justify-content-center align-items-center">
+      <form
+        name="informationchange"
+        id="informationchange"
+        action="/profile"
+        method="post"
+      >
+        <p>Personal Information</p>
+        <p>
+          <label>First_name</label>
+          <input name="firstname" id="firstname" value='{{details[1]}}'>
+        </input>
+        </p>
+
+        <p>
+          <label>Last_name</label>
+          <input name="lastname" id="lastname" value='{{details[2]}}'>
+        </input>
+    
+        </p>
+
+        <p>
+          <label>Email</label>
+          <input name="email" id="email" value={{details[3]}}>
+        </input>
+        </p>
+
+        <p>
+          <label>Phone number</label>
+          <input name="phone" id="phone" value={{details[4]}}>
+        </input>
+        </p>
+
+        {% if role =='gardener' %}
+        <p>
+          <label>Address</label>
+          <input name="address" id="address" value='{{details[5]}}'>
+        </input>
+    
+        </p>
+        {% endif %}
+
+        <p class="d-flex justify-content-center align-items-center">
+          <input type="submit" value="update" />
+          <div class="msg">{{ msgInfo }}</div>
+        </p>
+      </form>
+
+      <div>
+        <form
+          name="passwordchange"
+          id="passwordchange"
+          action="/profile"
+          method="post"
+        >
+          <p>Password Change</p>
+          <p>
+            <label>Current password</label>
+            <input type="password" name="curpassword" required />
+          </p>
+          <p>
+            <label>New password</label>
+            <input type="password" name="newpassword" required/>
+          </p>
+          <p>
+            <label>Confirmed password</label>
+            <input type="password" name="conpassword" required/>
+          </p>
+
+          <p class="d-flex justify-content-center align-items-center">
+            <input type="submit" value="update" />
+            <div class="msg">{{ msgPassword }}</div>
+            
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

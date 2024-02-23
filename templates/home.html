@@ -1,1 +1,66 @@
-<h1>Home page</h1>
+<style>
+  .features {
+    text-align: center;
+  }
+
+  .features ul {
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    list-style-type: none;
+  }
+
+  .features li {
+    width: 150px;
+    height: 150px;
+    margin: 20px;
+  }
+
+  .features li {
+    background-color: lightblue;
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+</style>
+
+<div class="container">
+  <div class="header" style="width: 100%; height: 150px"></div>
+  <div
+    class="nav"
+    style="
+      border: 1px solid black;
+      width: 100%;
+      height: 60px;
+      line-height: 60px;
+      padding-left: 50px;
+      font-size: 30px;
+    "
+  >
+    Dashboard
+  </div>
+  <div>Hello {{username}}</div>
+  <div><a href="{{ url_for('logout') }}">Log out</a></div>
+</div>
+
+<div class="features">
+  <ul>
+    <li><a href="/profile">Profile</a></li>
+
+    {% if role=='gardener' %}
+    <li><a href="/guide">guide</a></li>
+    {% endif %} {% if role=='staff' %}
+
+    <li><a href="/gardeners">Gardener</a></li>
+    <li><a href="guide">Manage Guide</a></li>
+    {% endif %} {% if role=='admin' %}
+    <li><a href="/gardeners">Manage Gardener</a></li>
+    <li><a href="/staff">Manage Staff</a></li>
+    <li><a href="/guide">Manage Guide</a></li>
+
+    {% endif %}
+  </ul>
+</div>

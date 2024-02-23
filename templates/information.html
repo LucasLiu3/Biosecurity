@@ -1,0 +1,89 @@
+{% if gardeners %}
+<div style="margin: 30px">
+  <div>
+    <h2 class="text-center">Gardener List</h2>
+
+    {% if role =='admin' %}
+    <a href="/add/gardener"><button>Add</button></a>
+    {% endif %}
+  </div>
+
+  <table class="table table-bordered border-dark table-striped text-center">
+    <tr>
+      <th>Gardener Id</th>
+      <th>Full Name</th>
+      <th>Email</th>
+      <th>Phone Number</th>
+      <th>Address</th>
+      <th>Date Joined</th>
+      <th>Status</th>
+      {% if role =='admin' %}
+      <th>Actions</th>
+      {% endif %}
+    </tr>
+    {% for gardener in gardeners %}
+
+    <tr>
+      <td>{{ gardener[0] }}</td>
+      <td>{{ gardener[1] }} {{ gardener[2] }}</td>
+      <td>{{ gardener[3] }}</td>
+      <td>{{ gardener[4] }}</td>
+      <td>{{ gardener[5] }}</td>
+      <td>{{ gardener[6] }}</td>
+      <td>{{ gardener[7] }}</td>
+
+      {% if role =='admin' %}
+      <td>
+        <a href="/update/gardener/{{gardener[0]}}"><button>Update</button></a>
+        <a href="/delete/gardener/{{gardener[0]}}"
+          ><button class="delete">Delete</button></a
+        >
+      </td>
+      {% endif %}
+    </tr>
+    {% endfor %}
+  </table>
+  {% endif %} {% if staffs %}
+
+  <div style="margin: 30px">
+    <div>
+      <h2 class="text-center">Staff List</h2>
+      <a href="/add/staff"><button>Add</button></a>
+    </div>
+
+    <table class="table table-bordered border-dark table-striped text-center">
+      <tr>
+        <th>Staff Id</th>
+        <th>Full Name</th>
+        <th>Email</th>
+        <th>Phone Number</th>
+        <th>Hire Date</th>
+        <th>Postion</th>
+        <th>Department</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+      {% for staff in staffs %}
+
+      <tr>
+        <td>{{ staff[0] }}</td>
+        <td>{{ staff[1] }} {{ staff[2] }}</td>
+        <td>{{ staff[3] }}</td>
+        <td>{{ staff[4] }}</td>
+        <td>{{ staff[5] }}</td>
+        <td>{{ staff[6] }}</td>
+        <td>{{ staff[7] }}</td>
+        <td>{{ staff[8] }}</td>
+        <td>
+          <a href="/update/staff/{{staff[0]}}"><button>Update</button></a>
+          <a href="/delete/staff/{{staff[0]}}"
+            ><button class="delete">Delete</button></a
+          >
+        </td>
+      </tr>
+
+      {% endfor %}
+    </table>
+    {% endif%}
+  </div>
+</div>
