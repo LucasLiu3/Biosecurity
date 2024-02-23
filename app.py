@@ -233,7 +233,7 @@ def profile():
 @app.route("/gardeners")
 def gardeners():
 
-    if 'loggedin' in session:
+    if 'loggedin' in session and (session['role'] =='admin' or session['role']=='staff'):
 
          if request.method == 'GET':
             role = session['role']
@@ -252,7 +252,7 @@ def gardeners():
 @app.route("/staff")
 def staff():
 
-     if 'loggedin' in session:
+     if 'loggedin' in session and session['role'] =='admin':
 
         if request.method == 'GET':
             cursor = getCursor()
