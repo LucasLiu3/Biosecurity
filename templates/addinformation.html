@@ -1,9 +1,11 @@
-{% if gardener %}
+{% extends 'layout.html' %} {% block content1 %} {% if gardener %} Gardener
+Management {% endif %} {% if staff %} Staff Management {% endif %} {% endblock%}
+{% block content %} {% if gardener %}
 
-<div>
+<div style="margin-top: 30px">
   <h2 class="text-center">Add New Gardener</h2>
 </div>
-<div class="addForm">
+<div style="text-align: center; margin-top: 20px; font-size: 20px">
   <form class="add" action="/add/gardener" method="post">
     <p>
       <label>First Name:</label>
@@ -16,7 +18,7 @@
     </p>
 
     <p>
-      <label>email:</label>
+      <label>Email:</label>
       <input type="text" name="email" />
     </p>
 
@@ -34,9 +36,33 @@
       <label>Joined Date:</label>
       <input type="date" name="date" />
     </p>
-    <p style="text-align: center">
-      <button type="submit" value="update">Add</button>
-    </p>
+    <div style="text-align: center">
+      <button
+        type="submit"
+        value="update"
+        style="
+          margin-bottom: 10px;
+          border-radius: 10px;
+          font-size: 20px;
+          background-color: blue;
+          color: white;
+        "
+      >
+        Add
+      </button>
+      <button
+        style="
+          margin-bottom: 10px;
+          border-radius: 10px;
+          font-size: 20px;
+          background-color: blue;
+        "
+      >
+        <a href="/gardeners" style="text-decoration: none; color: white"
+          >Back</a
+        >
+      </button>
+    </div>
   </form>
 </div>
 
@@ -44,7 +70,7 @@
 <div>
   <h2 class="text-center">Add New Staff</h2>
 </div>
-<div class="addForm">
+<div style="text-align: center; margin-top: 20px; font-size: 20px">
   <form class="add" action="/add/staff" method="post">
     <p>
       <label>First Name:</label>
@@ -81,10 +107,32 @@
       <input type="text" name="department" />
     </p>
 
-    <p style="text-align: center">
-      <button type="submit" value="update">add</button>
-    </p>
+    <div style="text-align: center">
+      <button
+        type="submit"
+        value="update"
+        style="
+          margin-bottom: 10px;
+          border-radius: 10px;
+          font-size: 20px;
+          background-color: blue;
+          color: white;
+        "
+      >
+        Add
+      </button>
+      <button
+        style="
+          margin-bottom: 10px;
+          border-radius: 10px;
+          font-size: 20px;
+          background-color: blue;
+        "
+      >
+        <a href="/staff" style="text-decoration: none; color: white">Back</a>
+      </button>
+    </div>
   </form>
 </div>
 
-{% endif %}
+{% endif %} {% endblock %}

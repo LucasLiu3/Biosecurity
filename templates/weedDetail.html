@@ -1,0 +1,73 @@
+{% extends 'layout.html' %} {% block content1 %} Weed Managment {% endblock %}
+{% block content %}
+
+<div style="margin: 30px">
+  <h2 class="text-center">Weed Details</h2>
+
+  {% if role != 'gardener' %}
+  <div>
+    <button
+      style="
+        margin-bottom: 10px;
+        border-radius: 10px;
+        font-size: 20px;
+        background-color: blue;
+      "
+    >
+      <a href="/guide" style="color: white; text-decoration: none">Back</a>
+    </button>
+    <button
+      style="
+        margin-bottom: 10px;
+        border-radius: 10px;
+        font-size: 20px;
+        background-color: blue;
+      "
+    >
+      <a
+        href="/guide/update/{{weed[0]}}"
+        style="color: white; text-decoration: none"
+        >Update</a
+      >
+    </button>
+
+    <button
+      style="
+        margin-bottom: 10px;
+        border-radius: 10px;
+        font-size: 20px;
+        background-color: blue;
+      "
+    >
+      <a
+        href="/guide/delete/{{weed[0]}}"
+        style="color: white; text-decoration: none"
+        >Delete</a
+      >
+    </button>
+  </div>
+
+  {% endif %}
+  <div style="margin-top: 30px">
+    <h2>{{weed[1]}}</h2>
+    <h4 style="padding-top: 3px">Scientific Name</h4>
+    <p style="padding-bottom: 8px">{{weed[3]}}</p>
+    <h4>Description</h4>
+    <p>{{description or weed[4]}}</p>
+    <h4>Impact</h4>
+    <p>{{impact or weed[5]}}</p>
+    <h4>Control Method</h4>
+    <p>{{control or weed[6]}}</p>
+    <h4>Image</h4>
+    {% for image in imagefile %}
+
+    <img
+      src="{{ url_for('static', filename='weeds/' + weed[1] + '/images/' + image) }}"
+      alt=""
+      style="width: 140px; height: 140px"
+    />
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

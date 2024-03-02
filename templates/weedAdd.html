@@ -1,0 +1,77 @@
+{% extends 'layout.html' %} {% block content1 %} Weed Managment {% endblock %}
+{% block content %}
+
+<div style="margin-top: 30px">
+  <div>
+    <h2 class="text-center">Add New Weed</h2>
+  </div>
+  <div class="addForm">
+    <form
+      class="add"
+      action="/guide/add"
+      method="post"
+      enctype="multipart/form-data"
+    >
+      <p>
+        <label>Common Name:</label>
+        <input type="text" name="commonname" />
+      </p>
+
+      <p>
+        <label>Weed Type:</label>
+        <input type="text" name="type" />
+      </p>
+
+      <p>
+        <label>Scientific Name:</label>
+        <input type="text" name="scientific" />
+      </p>
+
+      <div>
+        <label>description:</label>
+        <textarea name="description" rows="4" cols="50"></textarea>
+      </div>
+
+      <div>
+        <label>Impacts:</label>
+        <textarea name="impacts" rows="4" cols="50"></textarea>
+      </div>
+
+      <div>
+        <label>Control Methods:</label>
+        <textarea name="control" rows="4" cols="50"></textarea>
+      </div>
+
+      <p>
+        <label>images:</label>
+        <input type="file" name="images" multiple />
+      </p>
+      <div style="text-align: center">
+        <button
+          type="submit"
+          value="update"
+          style="
+            margin-bottom: 10px;
+            border-radius: 10px;
+            font-size: 20px;
+            background-color: blue;
+            color: white;
+          "
+        >
+          Add
+        </button>
+        <button
+          style="
+            margin-bottom: 10px;
+            border-radius: 10px;
+            font-size: 20px;
+            background-color: blue;
+          "
+        >
+          <a href="/guide" style="text-decoration: none; color: white">Back</a>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

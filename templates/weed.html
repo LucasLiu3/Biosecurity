@@ -1,0 +1,66 @@
+{% extends "layout.html" %} {% block content1 %} Weed Managment {% endblock %}
+{% block content %}
+
+<div style="margin: 30px">
+  <h2 class="text-center">Weed List</h2>
+  {% if role != 'gardener' %}
+  <a href="/guide/add"
+    ><button
+      style="
+        margin-bottom: 10px;
+        border-radius: 10px;
+        font-size: 20px;
+        background-color: blue;
+        color: white;
+        margin-left: 35px;
+      "
+    >
+      Add
+    </button></a
+  >
+  {% endif %}
+  <table class="table table-bordered border-dark table-striped">
+    <ul style="list-style: none">
+      {% for weed in weeds %}
+      <li
+        style="
+          background-color: #cecece;
+          margin: 0 0 10px 0;
+          padding: 0;
+          position: relative;
+          text-shadow: 1px 1px 0 rgba(255);
+        "
+      >
+        <div style="position: absolute; top: 0; left: 0">
+          <a href="/guide/detail/{{weed[0]}}">
+            <img
+              src="../static/weeds/{{weed[1]}}/images/{{weed[-1][0]}}"
+              alt=""
+              style="width: 140px; height: 140px"
+            />
+          </a>
+        </div>
+        <div
+          style="
+            background-color: #ebebeb;
+            padding: 10px 15px 10px 15px;
+            margin-left: 140px;
+            border-left: 4px solid #fff;
+            min-height: 140px;
+          "
+        >
+          <p style="font-size: 23px">
+            <label> Common Name: </label>
+            <span> {{weed[1]}} </span>
+          </p>
+          <p style="font-size: 23px">
+            <label>Weed Type: </label> <span>{{weed[3]}}</span>
+          </p>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </table>
+</div>
+
+{% endblock %}

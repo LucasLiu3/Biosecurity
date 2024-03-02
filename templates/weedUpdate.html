@@ -1,0 +1,93 @@
+
+{% extends 'layout.html' %}
+
+{% block content1 %} Weed Managment {% endblock %}
+
+{% block content %}
+
+<div style="margin-top: 30px;">
+<div>
+  <h2 class="text-center">Update Weed</h2>
+</div>
+<div  >
+  <form
+    class="add"
+    action="/guide/update/{{weed[0]}}"
+    method="post"
+    enctype="multipart/form-data"
+  >
+    <p>
+      <label>Common Name:</label>
+      <input type="text" name="commonname" value="{{weed[1]}}" />
+    </p>
+
+    <p>
+      <label>Weed Type:</label>
+      <input type="text" name="type" value="{{weed[2]}}" />
+    </p>
+
+    <p>
+      <label>Scientific Name:</label>
+      <input type="text" name="scientific" value="{{weed[3]}}" />
+    </p>
+
+    <p>
+        <label>description:</label>
+        <textarea name="description" rows="4" cols="50">{{description or weed[4]}}</textarea>
+    </p>
+  
+      <p>
+        <label>Impacts:</label>
+        <textarea name="impacts" rows="4" cols="50">{{impact or weed[5]}}</textarea>
+      </p>
+  
+      <p>
+        <label>Control Methods:</label>
+        <textarea name="control" rows="4" cols="50">{{control or weed[6]}}</textarea>
+      </p>
+
+      <label>Primary image:</label>
+      <select name="image" id="image" required>
+        <option value="" disabled selected hidden>
+          Select A Primary Image
+        </option>
+
+        {% for image in imagefile %}
+        <option value="{{image}}">{{image}}</option>
+        {% endfor %}
+      </select>
+    </p>
+
+    <div style="text-align: center">
+
+      <button
+        type="submit"
+        value="update"
+        style="
+          margin-bottom: 10px;
+          border-radius: 10px;
+          font-size: 20px;
+          background-color: blue;
+          color: white;
+        "
+      >
+        Update
+      </button>
+      <button
+        style="
+          margin-bottom: 10px;
+          border-radius: 10px;
+          font-size: 20px;
+          background-color: blue;
+        "
+      >
+        <a href="/guide/detail/{{weed[0]}}" style="text-decoration: none; color: white">Back</a>
+      </button>
+
+    </div>
+  </form>
+</div>
+</div>
+
+
+{% endblock %}

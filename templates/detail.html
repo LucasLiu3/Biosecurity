@@ -1,0 +1,163 @@
+{% extends 'layout.html' %} {% block content1 %} {% if gardeners %} Gardener
+Management {% endif %} {% if staffs %} Staff Management {% endif %} {%
+endblock%} {% block content %} {% if gardeners %}
+<div style="margin: 30px">
+  <div>
+    <h2 class="text-center">Gardener List</h2>
+
+    {% if role =='admin' %}
+    <button
+      style="
+        margin-bottom: 10px;
+        border-radius: 10px;
+        font-size: 20px;
+        background-color: blue;
+      "
+    >
+      <a href="/add/gardener" style="color: white; text-decoration: none"
+        >Add</a
+      >
+    </button>
+
+    {% endif %}
+  </div>
+
+  <table class="table table-bordered border-dark table-striped text-center">
+    <tr style="font-size: 20px">
+      <th>Gardener Id</th>
+      <th>Full Name</th>
+      <th>Email</th>
+      <th>Phone Number</th>
+      <th>Address</th>
+      <th>Date Joined</th>
+      <th>Status</th>
+      {% if role =='admin' %}
+      <th>Actions</th>
+      {% endif %}
+    </tr>
+    {% for gardener in gardeners %}
+
+    <tr style="font-size: 18px">
+      <td>{{ gardener[0] }}</td>
+      <td>{{ gardener[1] }} {{ gardener[2] }}</td>
+      <td>{{ gardener[3] }}</td>
+      <td>{{ gardener[4] }}</td>
+      <td>{{ gardener[5] }}</td>
+      <td>{{ gardener[6] }}</td>
+      <td>{{ gardener[7] }}</td>
+
+      {% if role =='admin' %}
+      <td>
+        <button
+          style="
+            margin-bottom: 10px;
+            border-radius: 10px;
+            font-size: 15px;
+            background-color: blue;
+          "
+        >
+          <a
+            href="/update/gardener/{{gardener[0]}}"
+            style="color: white; text-decoration: none"
+            >Update</a
+          >
+        </button>
+
+        <button
+          style="
+            margin-bottom: 10px;
+            border-radius: 10px;
+            font-size: 15px;
+            background-color: blue;
+          "
+        >
+          <a
+            href="/delete/gardener/{{gardener[0]}}"
+            style="color: white; text-decoration: none"
+            >Delete</a
+          >
+        </button>
+      </td>
+      {% endif %}
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+
+{% endif %} {% if staffs %}
+
+<div style="margin: 30px">
+  <div>
+    <h2 class="text-center">Staff List</h2>
+
+    <button
+      style="
+        margin-bottom: 10px;
+        border-radius: 10px;
+        font-size: 20px;
+        background-color: blue;
+      "
+    >
+      <a href="/add/staff" style="color: white; text-decoration: none">Add</a>
+    </button>
+  </div>
+
+  <table class="table table-bordered border-dark table-striped text-center">
+    <tr style="font-size: 20px">
+      <th>Staff Id</th>
+      <th>Full Name</th>
+      <th>Email</th>
+      <th>Phone Number</th>
+      <th>Hire Date</th>
+      <th>Postion</th>
+      <th>Department</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+    {% for staff in staffs %}
+
+    <tr style="font-size: 18px">
+      <td>{{ staff[0] }}</td>
+      <td>{{ staff[1] }} {{ staff[2] }}</td>
+      <td>{{ staff[3] }}</td>
+      <td>{{ staff[4] }}</td>
+      <td>{{ staff[5] }}</td>
+      <td>{{ staff[6] }}</td>
+      <td>{{ staff[7] }}</td>
+      <td>{{ staff[8] }}</td>
+      <td>
+        <button
+          style="
+            margin-bottom: 10px;
+            border-radius: 10px;
+            font-size: 15px;
+            background-color: blue;
+          "
+        >
+          <a
+            href="/update/staff/{{staff[0]}}"
+            style="color: white; text-decoration: none"
+            >Update</a
+          >
+        </button>
+
+        <button
+          style="
+            margin-bottom: 10px;
+            border-radius: 10px;
+            font-size: 15px;
+            background-color: blue;
+          "
+        >
+          <a
+            href="/delete/staff/{{staff[0]}}"
+            style="color: white; text-decoration: none"
+            >Delete</a
+          >
+        </button>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endif%} {% endblock %}

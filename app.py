@@ -1,3 +1,4 @@
+import os
 from flask import Flask, session
 from flask import render_template
 from flask import request
@@ -82,21 +83,16 @@ def logout():
 # http://localhost:5000/register - this will be the registration page, we need to use both GET and POST requests
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    # Output message if something goes wrong...
     msg = ''
-    # Check if "username", "password" and "email" POST requests exist (user submitted form)
     if request.method == 'POST':
 
         if 'username' in request.form and 'password' in request.form and 'email' in request.form:
-        # Create variables for easy access
             username = request.form['username']
             password = request.form['password']
             email = request.form['email']
-            # Check if account exists using MySQL
             cursor = getCursor()
             cursor.execute('SELECT * FROM account WHERE username = %s', (username,))
             account = cursor.fetchone()
-            # If account exists show error and validation checks
             if account:
                 msg = 'Account already exists!'
             elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
@@ -106,7 +102,6 @@ def register():
             elif not username or not password or not email:
                 msg = 'Please fill out the form!'
             else:
-                # Account doesnt exists and the form data is valid, now insert new account into accounts table
                 hashed = hashing.hash_value(password, salt='abcd')
                 cursor.execute('INSERT INTO account (username, password, email) VALUES (%s, %s, %s)', (username, hashed, email,))
                 connection.commit()
@@ -131,7 +126,7 @@ def register():
                          """)
             connection.commit()
 
-            return redirect(url_for('home',username=username))
+            return redirect(url_for('home'))
 
     return render_template('register.html', msg=msg)
 
@@ -156,12 +151,10 @@ def profile():
         if role != 'gardener':
             cursor = getCursor()
             cursor.execute('SELECT * FROM employee WHERE username = %s', (username,))
-            # Fetch one record and return result
             details = cursor.fetchone()
         else:
             cursor = getCursor()
             cursor.execute('SELECT * FROM gardener WHERE username = %s', (username,))
-            # Fetch one record and return result
             details = cursor.fetchone()
 
         if request.method == 'GET':
@@ -180,7 +173,6 @@ def profile():
 
                 cursor = getCursor()
                 cursor.execute('SELECT password FROM account WHERE username = %s', (username,))
-                # Fetch one record and return result
                 oldPassword = cursor.fetchone()[0]
                 
                 if hashed == oldPassword:
@@ -189,7 +181,6 @@ def profile():
                         msgPassword = 'New password and confirmed password should be same'
                         return render_template("profile.html",role=role, details=details,username=username,msgPassword=msgPassword)
                     else:
-                        
                         hasedNewPassword = hashing.hash_value(newPassword, salt='abcd')
 
                         cursor.execute( f"""update account set password = '{hasedNewPassword}' where username = '{username}';""")
@@ -223,7 +214,7 @@ def profile():
                     connection.commit()
                     
                 details = ['',firstname,lastname,email,phone,address]
-                msgInfo = 'information updated successfully!'
+                msgInfo = 'Information updated successfully!'
 
                 return render_template('profile.html',details=details,role=role,username=username,msgInfo=msgInfo)
 
@@ -235,16 +226,14 @@ def gardeners():
 
     if 'loggedin' in session and (session['role'] =='admin' or session['role']=='staff'):
 
-         if request.method == 'GET':
-            role = session['role']
+        username = session['username']
+        role = session['role']
 
-            cursor = getCursor()
-            cursor.execute('SELECT * FROM gardener')
-            # Fetch one record and return result
-            gardeners = cursor.fetchall()  
+        cursor = getCursor()
+        cursor.execute('SELECT * FROM gardener')
+        gardeners = cursor.fetchall()  
 
-    
-            return render_template('information.html',role=role,gardeners=gardeners)
+        return render_template('detail.html',role=role,gardeners=gardeners,username=username)
     
     return render_template('base.html')
     
@@ -254,14 +243,12 @@ def staff():
 
      if 'loggedin' in session and session['role'] =='admin':
 
-        if request.method == 'GET':
-            cursor = getCursor()
-            cursor.execute(f"""SELECT * FROM employee where (username != 'admin' or username is NULL) order by staff_id""")
-            # Fetch one record and return result
-            staff = cursor.fetchall()
+        
+        cursor = getCursor()
+        cursor.execute(f"""SELECT * FROM employee where (username != 'admin' or username is NULL) order by staff_id""")
+        staff = cursor.fetchall()
 
-
-            return render_template('information.html',staffs=staff)
+        return render_template('detail.html',staffs=staff)
     
      return render_template('base.html')
 
@@ -379,3 +366,173 @@ def add(role):
 
             return redirect(url_for('staff'))
          
+
+
+@app.route("/guide")
+def guide():
+
+    cursor = getCursor()
+    cursor.execute(f"""select * from weed """)
+    weeds = cursor.fetchall()
+    role=session['role']
+    newWeeds = []
+    for weed in weeds:
+
+        weed= list(weed)
+        newWeeds.append(weed)
+
+    for newWeed in newWeeds:
+        newWeed[-1] = newWeed[-1].split(',')
+
+    return render_template('weed.html',weeds=newWeeds,role=role)
+
+
+@app.route("/guide/detail/<id>")
+def detail(id):
+
+    role = session['role']
+    cursor = getCursor()
+    cursor.execute(f"""select * from weed where weed_id = {id}""")
+    weed = cursor.fetchone()
+
+    if weed[4].startswith('d') and weed[5].startswith('i') and weed[6].startswith('c'):
+        impactFile = f'./static/weeds/{weed[1]}/{weed[5]}'
+        with open(impactFile,'r') as file:
+            impact = file.read()
+
+        descriptionFile = f'./static/weeds/{weed[1]}/{weed[4]}'
+        with open(descriptionFile,'r') as file:
+            description = file.read()
+
+        controlFile = f'./static/weeds/{weed[1]}/{weed[6]}'
+        with open(controlFile,'r') as file:
+            control = file.read()
+        
+        imagefile = weed[-1].split(',')
+
+        return render_template('weedDetail.html',role=role,weed=weed,impact=impact,description=description,control=control,imagefile=imagefile)
+
+    else:
+        imagefile = weed[-1].split(',')
+        return render_template('weedDetail.html',role=role,weed=weed,imagefile=imagefile)
+
+
+@app.route("/guide/add",methods=['POST','GET'])
+def guideAdd():
+
+    if request.method=='GET':
+
+        return render_template('weedAdd.html')
+    
+    if request.method == 'POST':
+
+        common_name = request.form.get('commonname')
+        weed_type = request.form.get('type')
+        scientific_name = request.form.get('scientific')
+        description = request.form.get('description')
+        impacts = request.form.get('impacts')
+        control_methods = request.form.get('control')
+
+     
+        new_folder_path = os.path.join('static', 'weeds', common_name)
+        os.makedirs(new_folder_path, exist_ok=True)
+
+        image_folder_path = os.path.join('static', 'weeds', common_name,'images')
+        os.makedirs(image_folder_path, exist_ok=True)
+
+        uplaoded_images = request.files.getlist('images')
+
+        image_str = ''
+        for image in uplaoded_images:
+            image.save(os.path.join(image_folder_path,image.filename))
+            if image_str:
+                image_str+= ',' + image.filename
+            else:
+                image_str += image.filename
+
+        cursor = getCursor()
+        cursor.execute(f"""insert into weed (common_name, weed_type, scientific_name, description,impacts,control_methods,images)
+                         values ('{common_name}','{weed_type}','{scientific_name}','{description}','{impacts}','{control_methods}','{image_str}');
+                         """)
+        connection.commit()
+
+        return redirect(url_for('guide'))
+    
+
+@app.route("/guide/update/<id>",methods=['POST','GET'])
+def guideUpdate(id):
+
+    cursor = getCursor()
+    cursor.execute(f"""select * from weed where weed_id = {id} """)
+    weed = cursor.fetchone()
+
+    if request.method == 'GET':
+
+        if weed[4].startswith('d') and weed[5].startswith('i') and weed[6].startswith('c'):
+            impactFile = f'./static/weeds/{weed[1]}/{weed[5]}'
+            with open(impactFile,'r') as file:
+                impact = file.read()
+
+            descriptionFile = f'./static/weeds/{weed[1]}/{weed[4]}'
+            with open(descriptionFile,'r') as file:
+                description = file.read()
+
+            controlFile = f'./static/weeds/{weed[1]}/{weed[6]}'
+            with open(controlFile,'r') as file:
+                control = file.read()
+            
+            imagefile = weed[-1].split(',')
+
+            return render_template('weedUpdate.html',weed=weed,impact=impact,description=description,control=control,imagefile=imagefile)
+
+        else:
+            imagefile = weed[-1].split(',')
+            return render_template('weedUpdate.html',weed=weed,imagefile=imagefile)
+
+        
+    
+    if request.method =='POST':
+  
+
+        common_name = request.form.get('commonname')
+        weed_type = request.form.get('type')
+        name = request.form.get('scientific')
+        description = request.form.get('description')
+        impacts = request.form.get('impacts')
+        control = request.form.get('control')
+        image = request.form.get('image')
+
+
+        old_fold = f'./static/weeds/{weed[1]}'
+        new_fold = f'./static/weeds/{common_name}'
+        if os.path.exists(old_fold):
+            os.rename(old_fold, new_fold)
+        
+        imagefile = weed[-1].split(',')
+        imagefile.remove(image)
+        imagefile.insert(0,image)
+
+        images = ','.join(imagefile)
+
+        
+        cursor = getCursor()
+        cursor.execute(f"""UPDATE weed 
+                    SET common_name = '{common_name}',
+                        weed_type = '{weed_type}',
+                        scientific_name = '{name}', 
+                        description = '{description}',
+                        impacts = '{impacts}',
+                        control_methods ='{control}',
+                        images ='{images}'
+                    WHERE weed_id = '{id}'""")
+        connection.commit()
+
+        return redirect(url_for(f'detail',id=id))
+    
+@app.route("/guide/delete/<id>",methods=['POST','GET'])
+def guideDelete(id):
+
+    cursor = getCursor()
+    cursor.execute(f"""delete from weed where weed_id ='{id}'""")
+    connection.commit()
+    return redirect(url_for('guide'))
