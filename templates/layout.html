@@ -30,37 +30,23 @@
       >
         {% block content1 %} {% endblock %}
         <div class="d-flex align-items-center">
-          <div style="margin-left: 20px">Hello {{ username }}</div>
-          <div style="display: inline-block; margin-left: 20px">
-            <button
-              class="btn"
-              style="
-                font-size: 30px;
-                background-color: black;
-                border-radius: 10px;
-              "
+          {% block content2 %} {% endblock %}
+
+          <button
+            class="btn"
+            style="
+              font-size: 30px;
+              background-color: black;
+              border-radius: 10px;
+              margin-left: 20px;
+            "
+          >
+            <a
+              href="{{ url_for('logout') }}"
+              style="color: white; text-decoration: none"
+              >Log out</a
             >
-              <a
-                href="{{ url_for('home') }}"
-                style="color: white; text-decoration: none"
-                >Home</a
-              >
-            </button>
-            <button
-              class="btn"
-              style="
-                font-size: 30px;
-                background-color: black;
-                border-radius: 10px;
-              "
-            >
-              <a
-                href="{{ url_for('logout') }}"
-                style="color: white; text-decoration: none"
-                >Log out</a
-              >
-            </button>
-          </div>
+          </button>
         </div>
       </div>
     </div>

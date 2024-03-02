@@ -34,7 +34,9 @@
 </style>
 
 {% extends 'layout.html' %} {% block content1 %} Dashboard {% endblock %} {%
-block content %}
+block content2 %}
+<div style="margin-left: 20px">Hello {{ username }}</div>
+{% endblock %} {% block content %}
 
 <div class="features" style="margin-top: 100px">
   <ul>

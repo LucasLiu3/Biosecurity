@@ -1,6 +1,15 @@
 {% extends 'layout.html' %} {% block content1 %} {% if gardener %} Gardener
 Management {% endif %} {% if staff %} Staff Management {% endif %} {% endblock%}
-{% block content %} {% if gardener %}
+{% block content2 %}
+<button
+  class="btn"
+  style="font-size: 30px; background-color: black; border-radius: 10px"
+>
+  <a href="{{ url_for('home') }}" style="color: white; text-decoration: none"
+    >Home</a
+  >
+</button>
+{% endblock %} {% block content %} {% if gardener %}
 
 <div style="margin-top: 30px">
   <h2 class="text-center">Add New Gardener</h2>
@@ -67,7 +76,7 @@ Management {% endif %} {% if staff %} Staff Management {% endif %} {% endblock%}
 </div>
 
 {% endif %} {% if staff %}
-<div>
+<div style="margin-top: 30px">
   <h2 class="text-center">Add New Staff</h2>
 </div>
 <div style="text-align: center; margin-top: 20px; font-size: 20px">

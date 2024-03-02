@@ -3,13 +3,23 @@
 
 {% block content1 %} Weed Managment {% endblock %}
 
+{% block content2 %} <button
+class="btn"
+style="font-size: 30px; background-color: black; border-radius: 10px"
+>
+<a href="{{ url_for('home') }}" style="color: white; text-decoration: none"
+  >Home</a
+>
+</button>
+{% endblock %}
+
 {% block content %}
 
 <div style="margin-top: 30px;">
 <div>
   <h2 class="text-center">Update Weed</h2>
 </div>
-<div  >
+<div   style="font-size: 20px; text-align: center; margin-top: 20px">
   <form
     class="add"
     action="/guide/update/{{weed[0]}}"
@@ -31,6 +41,18 @@
       <input type="text" name="scientific" value="{{weed[3]}}" />
     </p>
 
+    <label>Primary image:</label>
+      <select name="image" id="image" required>
+        <option value="" disabled selected hidden>
+          Select A Primary Image
+        </option>
+
+        {% for image in imagefile %}
+        <option value="{{image}}">{{image}}</option>
+        {% endfor %}
+      </select>
+
+
     <p>
         <label>description:</label>
         <textarea name="description" rows="4" cols="50">{{description or weed[4]}}</textarea>
@@ -46,16 +68,6 @@
         <textarea name="control" rows="4" cols="50">{{control or weed[6]}}</textarea>
       </p>
 
-      <label>Primary image:</label>
-      <select name="image" id="image" required>
-        <option value="" disabled selected hidden>
-          Select A Primary Image
-        </option>
-
-        {% for image in imagefile %}
-        <option value="{{image}}">{{image}}</option>
-        {% endfor %}
-      </select>
     </p>
 
     <div style="text-align: center">

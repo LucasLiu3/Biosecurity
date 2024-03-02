@@ -1,5 +1,14 @@
 {% extends "layout.html" %} {% block content1 %} Weed Managment {% endblock %}
-{% block content %}
+{% block content2 %}
+<button
+  class="btn"
+  style="font-size: 30px; background-color: black; border-radius: 10px"
+>
+  <a href="{{ url_for('home') }}" style="color: white; text-decoration: none"
+    >Home</a
+  >
+</button>
+{% endblock %} {% block content %}
 
 <div style="margin: 30px">
   <h2 class="text-center">Weed List</h2>

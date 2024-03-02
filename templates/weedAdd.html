@@ -1,11 +1,23 @@
 {% extends 'layout.html' %} {% block content1 %} Weed Managment {% endblock %}
-{% block content %}
+{% block content2 %}
+<button
+  class="btn"
+  style="font-size: 30px; background-color: black; border-radius: 10px"
+>
+  <a href="{{ url_for('home') }}" style="color: white; text-decoration: none"
+    >Home</a
+  >
+</button>
+{% endblock %} {% block content %}
 
 <div style="margin-top: 30px">
   <div>
     <h2 class="text-center">Add New Weed</h2>
   </div>
-  <div class="addForm">
+  <div
+    class="addForm"
+    style="font-size: 20px; text-align: center; margin-top: 20px"
+  >
     <form
       class="add"
       action="/guide/add"
@@ -27,8 +39,13 @@
         <input type="text" name="scientific" />
       </p>
 
+      <p>
+        <label>images:</label>
+        <input type="file" name="images" multiple />
+      </p>
+
       <div>
-        <label>description:</label>
+        <label style="align-items: center">description:</label>
         <textarea name="description" rows="4" cols="50"></textarea>
       </div>
 
@@ -42,10 +59,6 @@
         <textarea name="control" rows="4" cols="50"></textarea>
       </div>
 
-      <p>
-        <label>images:</label>
-        <input type="file" name="images" multiple />
-      </p>
       <div style="text-align: center">
         <button
           type="submit"
