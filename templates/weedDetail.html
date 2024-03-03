@@ -45,8 +45,9 @@
         margin-bottom: 10px;
         border-radius: 10px;
         font-size: 20px;
-        background-color: blue;
+        background-color: red;
       "
+      class="btn-delete"
     >
       <a
         href="/guide/delete/{{weed[0]}}"
@@ -78,5 +79,19 @@
     {% endfor %}
   </div>
 </div>
+
+<script>
+  const deleteBtn = document.querySelector(".btn-delete");
+
+  deleteBtn.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    const confrimed = window.confirm("Do you want to delete it?");
+
+    if (confrimed) {
+      window.location.href = deleteBtn.querySelector("a").getAttribute("href");
+    }
+  });
+</script>
 
 {% endblock %}

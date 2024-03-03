@@ -78,8 +78,9 @@ endblock%} {% block content2 %}
             margin-bottom: 10px;
             border-radius: 10px;
             font-size: 15px;
-            background-color: blue;
+            background-color: red;
           "
+          class="btn-delete"
         >
           <a
             href="/delete/gardener/{{gardener[0]}}"
@@ -156,8 +157,9 @@ endblock%} {% block content2 %}
             margin-bottom: 10px;
             border-radius: 10px;
             font-size: 15px;
-            background-color: blue;
+            background-color: red;
           "
+          class="btn-delete"
         >
           <a
             href="/delete/staff/{{staff[0]}}"
@@ -170,4 +172,22 @@ endblock%} {% block content2 %}
     {% endfor %}
   </table>
 </div>
-{% endif%} {% endblock %}
+{% endif%}
+
+<script>
+  const deleteBtn = document.querySelectorAll(".btn-delete");
+
+  deleteBtn.forEach((each) =>
+    each.addEventListener("click", function (e) {
+      e.preventDefault();
+      const confrimed = window.confirm("Do you want to delete it?");
+
+      console.log(confrimed);
+
+      if (confrimed) {
+        window.location.href = each.querySelector("a").getAttribute("href");
+      }
+    })
+  );
+</script>
+{% endblock %}
