@@ -127,7 +127,8 @@ def delete(role,id):
         cursor.execute(f"""delete from employee where staff_id ='{id}'""")
         connection.commit()
         return redirect(url_for('staff'))
-    
+
+
 @app.route("/add/<role>",methods=['POST','GET'])
 def add(role):
     

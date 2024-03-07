@@ -80,6 +80,9 @@ def register():
             cursor = getCursor()
             cursor.execute('SELECT * FROM account WHERE username = %s', (username,))
             account = cursor.fetchone()
+
+            pattern = re.compile(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$')
+
             if account:
                 msg = 'Account already exists!'
             elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
@@ -88,6 +91,8 @@ def register():
                 msg = 'Username must contain only characters and numbers!'
             elif not username or not password or not email:
                 msg = 'Please fill out the form!'
+            elif len(password) <8 and not re.match(pattern,password):
+                msg = 'Password should  8 characters long and have different character types'
             else:
                 hashed = hashing.hash_value(password, salt='abcd')
                 cursor.execute('INSERT INTO account (username, password, email) VALUES (%s, %s, %s)', (username, hashed, email,))

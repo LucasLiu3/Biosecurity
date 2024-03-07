@@ -28,17 +28,17 @@ style="font-size: 30px; background-color: black; border-radius: 10px"
   >
     <p>
       <label>Common Name:</label>
-      <input type="text" name="commonname" value="{{weed[1]}}" />
+      <input type="text" name="commonname" value="{{weed[1]}}" required />
     </p>
 
     <p>
       <label>Weed Type:</label>
-      <input type="text" name="type" value="{{weed[2]}}" />
+      <input type="text" name="type" value="{{weed[2]}}" required />
     </p>
 
     <p>
       <label>Scientific Name:</label>
-      <input type="text" name="scientific" value="{{weed[3]}}" />
+      <input type="text" name="scientific" value="{{weed[3]}}" required />
     </p>
 
     <label>Primary image:</label>
@@ -55,17 +55,17 @@ style="font-size: 30px; background-color: black; border-radius: 10px"
 
     <p>
         <label>description:</label>
-        <textarea name="description" rows="4" cols="50">{{description or weed[4]}}</textarea>
+        <textarea name="description" rows="4" cols="50" required>{{description or weed[4]}}</textarea>
     </p>
   
       <p>
         <label>Impacts:</label>
-        <textarea name="impacts" rows="4" cols="50">{{impact or weed[5]}}</textarea>
+        <textarea name="impacts" rows="4" cols="50" required>{{impact or weed[5]}}</textarea>
       </p>
   
       <p>
         <label>Control Methods:</label>
-        <textarea name="control" rows="4" cols="50">{{control or weed[6]}}</textarea>
+        <textarea name="control" rows="4" cols="50" required>{{control or weed[6]}}</textarea>
       </p>
 
     </p>
