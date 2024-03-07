@@ -11,6 +11,9 @@
     />
   </head>
 
+
+
+
   <body style="background-image: url(../static/coverImage.jpg)">
     <div class="container text-center">
       <h1 class="text-primary my-5">Welcome to Weed Knowledge</h1>
@@ -48,15 +51,15 @@
             autocomplete="off"
           >
             <p>
-              <label for="username"> First name: </label>
+              <label> First name: </label>
               <input type="text" name="firstname" id="firstname" required />
             </p>
             <p>
-              <label for="lastname"> Last name: </label>
+              <label> Last name: </label>
               <input type="text" name="lastname" id="lastname" required />
             </p>
             <p>
-              <label for="email"> Email: </label>
+              <label > Email: </label>
               <input
                 type="text"
                 name="email"
@@ -67,11 +70,11 @@
               />
             </p>
             <p>
-              <label for="phone"> Phone number: </label>
+              <label> Phone : </label>
               <input type="text" name="phone" id="phone" required />
             </p>
             <p>
-              <label for="address"> Address </label>
+              <label> Address: </label>
               <input type="text" name="address" id="address" required />
             </p>
             <div class="msg">{{ msg }}</div>
@@ -89,6 +92,22 @@
             >
               Register
             </button>
+
+            <button
+            style="
+              font-size: 20px;
+              background-color: blue;
+              border-radius: 10px;
+              color: white;
+              margin-top: 10px;
+              cursor: pointer;
+              margin-left: 10px;
+            "
+          >
+          <a href="/register" style="text-decoration: none; color: white"
+          >Back</a
+        >
+          </button>
           </form>
         </div>
       </div>
@@ -124,15 +143,15 @@
             autocomplete="off"
           >
             <p>
-              <label for="username"> Username: </label>
+              <label> Username: </label>
               <input type="text" name="username" id="username" required />
             </p>
             <p>
-              <label for="password"> Password: </label>
+              <label > Password: </label>
               <input type="password" name="password" id="password" required />
             </p>
             <p>
-              <label for="password"> Email: </label>
+              <label style="margin-right: 30px;"> Email: </label>
               <input type="text" name="email" id="email" required />
             </p>
             <div class="msg">{{ msg }}</div>
@@ -150,6 +169,7 @@
             >
               Register
             </button>
+
           </form>
         </div>
       </div>

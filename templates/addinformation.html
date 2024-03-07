@@ -92,37 +92,37 @@ Management {% endif %} {% if staff %} Staff Management {% endif %} {% endblock%}
   <form class="add" action="/add/staff" method="post">
     <p>
       <label>First Name :</label>
-      <input type="text" name="firstname" />
+      <input type="text" name="firstname" required />
     </p>
 
     <p>
       <label>Last Name :</label>
-      <input type="text" name="lastname" />
+      <input type="text" name="lastname" required />
     </p>
 
     <p>
       <label>Email :</label>
-      <input type="text" name="email" />
+      <input type="text" name="email" required />
     </p>
 
     <p>
       <label>Phone :</label>
-      <input type="text" name="phone" />
+      <input type="text" name="phone" required />
     </p>
 
     <p style="margin-right: 45px">
       <label>Hire Date :</label>
-      <input type="date" name="date" />
+      <input type="date" name="date" required />
     </p>
 
     <p>
       <label>Position :</label>
-      <input type="text" name="position" />
+      <input type="text" name="position" required />
     </p>
 
     <p>
       <label>Department :</label>
-      <input type="text" name="department" />
+      <input type="text" name="department" required />
     </p>
 
     <div style="text-align: center; margin-top: 30px">
