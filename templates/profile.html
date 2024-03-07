@@ -4,6 +4,14 @@
   input {
     font-size: 20px;
   }
+
+  p {
+    display: flex; align-items: center;
+  }
+
+  label {
+    margin-right: 30px;
+  }
 </style>
 
 
@@ -29,15 +37,15 @@ style="font-size: 30px; background-color: black; border-radius: 10px"
 
 
 
-<div style="margin-top: 20px;text-align: center;">
+<div style="margin-top: 20px;text-align: center;display: flex; justify-content: center;">
 
-    <div>
+    <div style="margin-right: 50px;">
       <form
         name="informationchange"
         id="informationchange"
         action="/profile"
         method="post"
-        style="display: flex; flex-direction: column;"
+        style="display: flex; flex-direction: column;margin: 0 auto; width: fit-content"
 
       >
         <p style="font-size: 30px">Personal Information</p>
@@ -45,33 +53,33 @@ style="font-size: 30px; background-color: black; border-radius: 10px"
         <div style="font-size: 20px;margin-left: 80px;">
           <p>
             <label>First Name:</label>
-            <input name="firstname" id="firstname" value='{{details[1]}}'>
+            <input name="firstname" id="firstname" value='{{details[1]}}' required />
           </input>
           </p>
   
           <p>
             <label>Last Name:</label>
-            <input name="lastname" id="lastname" value='{{details[2]}}'>
+            <input name="lastname" id="lastname" value='{{details[2]}}' required />
           </input>
       
           </p>
   
           <p>
             <label>Email:</label>
-            <input name="email" id="email" value={{details[3]}}>
+            <input name="email" id="email" value={{details[3]}} style="margin-left: 50px;" required />
           </input>
           </p>
   
           <p>
-            <label>Phone Number:</label>
-            <input name="phone" id="phone" value={{details[4]}}>
+            <label>Phone :</label>
+            <input name="phone" id="phone" value={{details[4]}} style="margin-left: 35px;"  required />
           </input>
           </p>
   
           {% if role =='gardener' %}
           <p>
             <label>Address:</label>
-            <input name="address" id="address" value='{{details[5]}}'>
+            <input name="address" id="address" value='{{details[5]}}' required />
           </input>
       
           </p>
@@ -94,6 +102,7 @@ style="font-size: 30px; background-color: black; border-radius: 10px"
               border-radius: 10px;
               font-size: 20px;
               background-color: blue;
+              margin-left: 10px;
             "
           >
             <a href="/home" style="color: white; text-decoration: none">Back</a>
@@ -109,6 +118,7 @@ style="font-size: 30px; background-color: black; border-radius: 10px"
           id="passwordchange"
           action="/profile"
           method="post"
+          style="display: flex; flex-direction: column;margin: 0 auto; width: fit-content"
         >
           <p style="font-size: 30px">Password Change</p>
 
@@ -119,7 +129,7 @@ style="font-size: 30px; background-color: black; border-radius: 10px"
           </p>
           <p>
             <label>New password:</label>
-            <input type="password" name="newpassword" required/>
+            <input type="password" name="newpassword" style="margin-left: 30px;" required/>
           </p>
           <p>
             <label>Confirmed password:</label>
@@ -143,6 +153,7 @@ style="font-size: 30px; background-color: black; border-radius: 10px"
               border-radius: 10px;
               font-size: 20px;
               background-color: blue;
+              margin-left: 10px;
             "
           >
             <a href="/home" style="color: white; text-decoration: none">Back</a>

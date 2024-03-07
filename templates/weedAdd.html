@@ -1,3 +1,11 @@
+<style>
+  label {
+    display: inline-block;
+    width: 150px;
+    text-align: left;
+  }
+</style>
+
 {% extends 'layout.html' %} {% block content1 %} Weed Managment {% endblock %}
 {% block content2 %}
 <button
@@ -23,9 +31,10 @@
       action="/guide/add"
       method="post"
       enctype="multipart/form-data"
+      style="margin: 0 auto; width: fit-content"
     >
       <p>
-        <label>Common Name:</label>
+        <label style="width: 160px">Common Name:</label>
         <input type="text" name="commonname" required />
       </p>
 
@@ -35,31 +44,31 @@
       </p>
 
       <p>
-        <label>Scientific Name:</label>
+        <label style="width: 160px">Scientific Name:</label>
         <input type="text" name="scientific" required />
       </p>
 
-      <p>
-        <label>images:</label>
+      <p style="margin-left: 110px">
+        <label style="width: 100px">Images:</label>
         <input type="file" name="images" multiple required />
       </p>
 
-      <div>
+      <div style="display: flex; align-items: center; margin-top: 10px">
         <label style="align-items: center">description:</label>
         <textarea name="description" rows="4" cols="50" required></textarea>
       </div>
 
-      <div>
+      <div style="display: flex; align-items: center; margin-top: 10px">
         <label>Impacts:</label>
         <textarea name="impacts" rows="4" cols="50" required></textarea>
       </div>
 
-      <div>
+      <div style="display: flex; align-items: center; margin-top: 10px">
         <label>Control Methods:</label>
         <textarea name="control" rows="4" cols="50" required></textarea>
       </div>
 
-      <div style="text-align: center">
+      <div style="text-align: center; margin-top: 20px; margin-left: 50px">
         <button
           type="submit"
           value="update"
@@ -79,6 +88,7 @@
             border-radius: 10px;
             font-size: 20px;
             background-color: blue;
+            margin-left: 50px;
           "
         >
           <a href="/guide" style="text-decoration: none; color: white">Back</a>

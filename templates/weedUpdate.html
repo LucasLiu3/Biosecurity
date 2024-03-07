@@ -1,4 +1,14 @@
 
+<style>
+  label {
+    display: inline-block;
+    width: 150px;
+    text-align: left;
+  }
+</style>
+
+
+
 {% extends 'layout.html' %}
 
 {% block content1 %} Weed Managment {% endblock %}
@@ -25,9 +35,10 @@ style="font-size: 30px; background-color: black; border-radius: 10px"
     action="/guide/update/{{weed[0]}}"
     method="post"
     enctype="multipart/form-data"
+    style="margin: 0 auto; width: fit-content"
   >
     <p>
-      <label>Common Name:</label>
+      <label style="width: 160px">Common Name:</label>
       <input type="text" name="commonname" value="{{weed[1]}}" required />
     </p>
 
@@ -37,11 +48,11 @@ style="font-size: 30px; background-color: black; border-radius: 10px"
     </p>
 
     <p>
-      <label>Scientific Name:</label>
+      <label style="width: 160px">Scientific Name:</label>
       <input type="text" name="scientific" value="{{weed[3]}}" required />
     </p>
 
-    <label>Primary image:</label>
+    <label style="margin-left: 10px">Primary image:</label>
       <select name="image" id="image" required>
         <option value="" disabled selected hidden>
           Select A Primary Image
@@ -53,24 +64,24 @@ style="font-size: 30px; background-color: black; border-radius: 10px"
       </select>
 
 
-    <p>
+    <div style="display: flex; align-items: center; margin-top: 10px">
         <label>description:</label>
         <textarea name="description" rows="4" cols="50" required>{{description or weed[4]}}</textarea>
-    </p>
+    </div>
   
-      <p>
+      <div style="display: flex; align-items: center; margin-top: 10px">
         <label>Impacts:</label>
         <textarea name="impacts" rows="4" cols="50" required>{{impact or weed[5]}}</textarea>
-      </p>
+      </div>
   
-      <p>
+      <div style="display: flex; align-items: center; margin-top: 10px">
         <label>Control Methods:</label>
         <textarea name="control" rows="4" cols="50" required>{{control or weed[6]}}</textarea>
-      </p>
+      </div style="display: flex; align-items: center; margin-top: 10px">
 
-    </p>
 
-    <div style="text-align: center">
+
+    <div style="text-align: center;margin-top: 20px; margin-left: 50px">
 
       <button
         type="submit"
@@ -91,6 +102,7 @@ style="font-size: 30px; background-color: black; border-radius: 10px"
           border-radius: 10px;
           font-size: 20px;
           background-color: blue;
+          margin-left: 50px;
         "
       >
         <a href="/guide/detail/{{weed[0]}}" style="text-decoration: none; color: white">Back</a>

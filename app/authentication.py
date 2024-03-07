@@ -92,7 +92,7 @@ def register():
             elif not username or not password or not email:
                 msg = 'Please fill out the form!'
             elif len(password) <8 and not re.match(pattern,password):
-                msg = 'Password should  8 characters long and have different character types'
+                msg = 'Password should be 8 characters long and different character types'
             else:
                 hashed = hashing.hash_value(password, salt='abcd')
                 cursor.execute('INSERT INTO account (username, password, email) VALUES (%s, %s, %s)', (username, hashed, email,))
