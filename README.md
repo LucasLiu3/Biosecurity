@@ -10,7 +10,7 @@ For adminstrator, they have all access to this web application. They could view,
 
 ## User login detail 
 
-username      password
+ username      password
 - user          123456
 * staff         123456
 + admin         123456
