@@ -1,4 +1,5 @@
 DROP SCHEMA IF EXISTS biosecurity;
+
 CREATE SCHEMA biosecurity;
 USE biosecurity;
 
@@ -22,7 +23,7 @@ CREATE TABLE IF NOT EXISTS gardener (
 	address VARCHAR(100),
     date_joined DATE ,
     status ENUM('active', 'inactive'),
-    username VARCHAR(100) unique, 
+    username VARCHAR(100) unique,
     FOREIGN KEY (username) REFERENCES account(username)
 );
 
@@ -36,7 +37,7 @@ CREATE TABLE IF NOT EXISTS employee (
     position VARCHAR(50) ,
     department VARCHAR(50),
     status ENUM('active', 'inactive'),
-    username VARCHAR(100) unique, 
+    username VARCHAR(100) unique,
     FOREIGN KEY (username) REFERENCES account(username)
 );
 
@@ -54,32 +55,31 @@ CREATE TABLE IF NOT EXISTS weed (
 
 
 INSERT INTO account (username, password,email,role)
-VALUES 
-('user', '5fae31539e070a690c1b63720c25eb5b86084b5098a942c86c89c1d67157ed6b','gardener@example.com','gardener'),
+VALUES
+('gardener', '5fae31539e070a690c1b63720c25eb5b86084b5098a942c86c89c1d67157ed6b','gardener@example.com','gardener'),
 ('staff', '5fae31539e070a690c1b63720c25eb5b86084b5098a942c86c89c1d67157ed6b','staff@example.com','staff'),
 ('admin', '5fae31539e070a690c1b63720c25eb5b86084b5098a942c86c89c1d67157ed6b','admin@example.com','admin');
 
 
--- 给gardener表创建5条数据
 INSERT INTO gardener (first_name, last_name, email , phone_number,address, date_joined, status, username)
-VALUES 
-('John', 'Doe', 'john@example.com', '1234567890','123 Main St',  '2022-01-01', 'active', 'user'),
+VALUES
+('John', 'Doe', 'john@example.com', '1234567890','123 Main St',  '2022-01-01', 'active', 'gardener'),
 ('Jane', 'Smith', 'jane@example.com', '9876543210','456 Elm St',  '2022-02-01', 'active', null),
 ('Michael', 'Johnson','michael@example.com', '4567890123', '789 Oak St',  '2022-03-01', 'active', null),
 ('Emily', 'Williams', 'emily@example.com', '2345678901','321 Pine St',  '2022-04-01', 'active', null),
 ('William', 'Brown', 'william@example.com', '8901234567','654 Maple St',  '2022-05-01', 'active', null);
 
--- 给employee表创建4条数据
+
 INSERT INTO employee ( first_name, last_name, email, work_phone_number, hire_date, position, department, status, username)
-VALUES 
+VALUES
 ( 'Alice', 'Johnson', 'staff@example.com', '1112223333', '2022-01-01', 'employee', 'HR', 'active', 'staff'),
 ( 'Bob', 'Smith', 'bob@example.com', '2223334444', '2022-02-01', 'employee', 'IT', 'active', null),
 ( 'Charlie', 'Davis', 'charlie@example.com', '3334445555', '2022-03-01', 'employee', 'Marketing', 'active', null),
 ( 'Admin', 'Admin', 'admin@example.com', '4445556666', '2022-04-01', 'admin', 'Admin', 'active', 'admin');
 
--- 给weed表创建20条数据
+
 INSERT INTO weed (common_name, weed_type, scientific_name, description, impacts, control_methods, images)
-VALUES 
+VALUES
 ('Aristea', 'Herb', 'Aristea ecklonii', 'description.text','impact.text', 'control.text',  'primary.jpg,image1.jpg,image2.jpg,image3.jpg'),
 ('Arrowhead',  'Grass', 'Pseudosasa japonica',  'description.text','impact.text', 'control.text','primary.jpg,image1.jpg,image2.jpg,image3.jpg'),
 ('Barberry',  'Barberry', 'Berberis glaucocarpa',  'description.text','impact.text', 'control.text','primary.jpg,image1.jpg,image2.jpg,image3.jpg'),
