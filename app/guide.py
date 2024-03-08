@@ -28,14 +28,19 @@ def getCursor():
     dbconn = connection.cursor()
     return dbconn
 
-
+# http://localhost:5000/guide - this will be the guide list page, we need GET method.
 @app.route("/guide")
 def guide():
 
+    # fetch all data about weeds from database
     cursor = getCursor()
     cursor.execute(f"""select * from weed """)
     weeds = cursor.fetchall()
+
+    # based on the role, weed detail page would shoud different function buttons
     role=session['role']
+
+    # rewrite the weed data
     newWeeds = []
     for weed in weeds:
 
@@ -47,15 +52,19 @@ def guide():
 
     return render_template('weed.html',weeds=newWeeds,role=role)
 
-
+# http://localhost:5000/guide/detail/<id> - this will be the each weed detail page, we need GET method.
 @app.route("/guide/detail/<id>")
 def detail(id):
 
     role = session['role']
+
+    #based on the id of the weed from route, fetch data of this weed from database.
     cursor = getCursor()
     cursor.execute(f"""select * from weed where weed_id = {id}""")
     weed = cursor.fetchone()
 
+    # the intial data about the weed contains text files of their description,impact,comtrol method information
+    # system would read those files and render to weed detail page
     if weed[4].startswith('d') and weed[5].startswith('i') and weed[6].startswith('c'):
         impactFile = f'./static/weeds/{weed[1]}/{weed[5]}'
         with open(impactFile,'r') as file:
@@ -73,20 +82,25 @@ def detail(id):
 
         return render_template('weedDetail.html',role=role,weed=weed,impact=impact,description=description,control=control,imagefile=imagefile)
 
+    # for those new added weed information, this could render those information from database in weed detail page.
     else:
         imagefile = weed[-1].split(',')
         return render_template('weedDetail.html',role=role,weed=weed,imagefile=imagefile)
 
-
+# http://localhost:5000/guide/add - this is the adding new weed detail page, we need GET and POST method.
 @app.route("/guide/add",methods=['POST','GET'])
 def guideAdd():
 
+    # if the request method is GET, then just show the add new weed page.
     if request.method=='GET':
 
         return render_template('weedAdd.html')
     
-    if request.method == 'POST':
 
+    # if the request method is POST
+    if request.method == 'POST':
+        
+        # collect new weed information from submitted form
         common_name = request.form.get('commonname')
         weed_type = request.form.get('type')
         scientific_name = request.form.get('scientific')
@@ -94,7 +108,7 @@ def guideAdd():
         impacts = request.form.get('impacts')
         control_methods = request.form.get('control')
 
-     
+        # create a new fold for this new weed
         new_folder_path = os.path.join('static', 'weeds', common_name)
         os.makedirs(new_folder_path, exist_ok=True)
 
@@ -111,6 +125,7 @@ def guideAdd():
             else:
                 image_str += image.filename
 
+        # in the weed table in database, insert a new data for this added new weed.
         cursor = getCursor()
         cursor.execute(f"""insert into weed (common_name, weed_type, scientific_name, description,impacts,control_methods,images)
                          values ('{common_name}','{weed_type}','{scientific_name}','{description}','{impacts}','{control_methods}','{image_str}');
@@ -119,16 +134,19 @@ def guideAdd():
 
         return redirect(url_for('guide'))
     
-
+# http://localhost:5000/guide/update/<id> - this is the update weed detail page, we need GET and POST method.
 @app.route("/guide/update/<id>",methods=['POST','GET'])
 def guideUpdate(id):
 
+    # fetch the data of the id provied by route
     cursor = getCursor()
     cursor.execute(f"""select * from weed where weed_id = {id} """)
     weed = cursor.fetchone()
 
+    # if the request method is GET
     if request.method == 'GET':
 
+        # if the data is initial data , then read files for this weed
         if weed[4].startswith('d') and weed[5].startswith('i') and weed[6].startswith('c'):
             impactFile = f'./static/weeds/{weed[1]}/{weed[5]}'
             with open(impactFile,'r') as file:
@@ -146,15 +164,16 @@ def guideUpdate(id):
 
             return render_template('weedUpdate.html',weed=weed,impact=impact,description=description,control=control,imagefile=imagefile)
 
+        # if the data is new added weed, then just going to update weed page
         else:
             imagefile = weed[-1].split(',')
             return render_template('weedUpdate.html',weed=weed,imagefile=imagefile)
 
         
-    
+    # if the request method is POST
     if request.method =='POST':
   
-
+        # collect input information from submitted form 
         common_name = request.form.get('commonname')
         weed_type = request.form.get('type')
         name = request.form.get('scientific')
@@ -163,7 +182,7 @@ def guideUpdate(id):
         control = request.form.get('control')
         image = request.form.get('image')
 
-
+        #change the contents in the fold for this weed
         old_fold = f'./static/weeds/{weed[1]}'
         new_fold = f'./static/weeds/{common_name}'
         if os.path.exists(old_fold):
@@ -175,7 +194,7 @@ def guideUpdate(id):
 
         images = ','.join(imagefile)
 
-        
+        # in weed database, update the new input information for this weed.
         cursor = getCursor()
         cursor.execute(f"""UPDATE weed 
                     SET common_name = '{common_name}',
@@ -190,6 +209,8 @@ def guideUpdate(id):
 
         return redirect(url_for(f'detail',id=id))
     
+# http://localhost:5000/guide/delete/<id> - this is the delete weed page, we need GET and POST method.
+
 @app.route("/guide/delete/<id>",methods=['POST','GET'])
 def guideDelete(id):
 

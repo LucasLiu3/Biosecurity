@@ -13,7 +13,6 @@
 <div style="margin: 30px">
   <h2 class="text-center">Weed Details</h2>
 
-  {% if role != 'gardener' %}
   <div>
     <button
       style="
@@ -27,6 +26,7 @@
         &lt;Back
       </a>
     </button>
+    {% if role != 'gardener' %}
     <button
       style="
         margin-bottom: 10px;
